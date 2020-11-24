@@ -27,3 +27,27 @@ CREATE TABLE employee (
   FOREIGN KEY (role_id) REFERENCES role(id)
 
 );
+
+-- DEPARTMENT SEEDS -----
+INSERT INTO department (name)
+VALUE ("Marketing");
+INSERT INTO department (name)
+VALUE ("Sales");
+INSERT INTO department (name)
+VALUE ("Finance");
+
+-- EMPLOYEE ROLE SEEDS -------
+INSERT INTO role (title, salary, department_id)
+VALUE ("Marketing Coordinator", 50000, 2);
+INSERT INTO role (title, salary, department_id)
+VALUE ("Salesman", 60000, 2);
+INSERT INTO role (title, salary, department_id)
+VALUE ("Accountant", 80000, 3);
+
+-- EMPLOYEE SEEDS -------
+INSERT INTO employee (first_name, last_name, role_id)
+VALUE ("Lebron", "James", 1);
+INSERT INTO employee (first_name, last_name, role_id)
+VALUE ("Michael", "Jordan", 2);
+INSERT INTO employee (first_name, last_name, role_id)
+VALUE ("Kobe","Bryant", 3);
