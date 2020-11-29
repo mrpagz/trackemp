@@ -51,3 +51,8 @@ INSERT INTO employee (first_name, last_name, role_id)
 VALUE ("Michael", "Jordan", 2);
 INSERT INTO employee (first_name, last_name, role_id)
 VALUE ("Kobe","Bryant", 3);
+
+-- SELECTING FOR CREATING 
+SELECT * FROM department;
+SELECT * FROM role;
+SELECT * FROM employee;
