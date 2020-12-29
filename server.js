@@ -275,7 +275,7 @@ function addEmployee() {
         console.log(`You successfully added: ${first_name} ${last_name} with role ID: ${role}`);
 
         viewTable(employees);
-        
+         
     });
 
 };
