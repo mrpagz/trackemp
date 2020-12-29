@@ -1,58 +1,35 @@
-DROP DATABASE IF EXISTS employee_trackerDB;
+drop database if exists employee_db;
 
-CREATE DATABASE employee_trackerDB;
+create database employee_db;
 
-USE employee_trackerDB;
+use employee_db;
 
--- DEPARTMENT TABLE ----
-CREATE TABLE department (
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(30)
- 
-);
--- DEPARTMENT TABLE ----
-CREATE TABLE role (
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  title VARCHAR(30),
-  salary DECIMAL,
-  department_id INT,
-  FOREIGN KEY (department_id) REFERENCES department(id)
-);
--- EMPLOYEE ROLE TABLE ----
-CREATE TABLE employee (
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  first_name VARCHAR(30),
-  last_name VARCHAR(30),
-  role_id INT,
-  FOREIGN KEY (role_id) REFERENCES role(id)
-
+create table department (
+	id int auto_increment not null,
+    name varchar(30) not null,
+    primary key (id)
 );
 
--- DEPARTMENT SEEDS -----
-INSERT INTO department (name)
-VALUE ("Marketing");
-INSERT INTO department (name)
-VALUE ("Sales");
-INSERT INTO department (name)
-VALUE ("Finance");
+create table role (
+	id int auto_increment not null,
+    title varchar(30),
+    salary decimal(10,2),
+    department_id int,
+    primary key (id),
+    foreign key (department_id) references department (id)
+);
 
--- EMPLOYEE ROLE SEEDS -------
-INSERT INTO role (title, salary, department_id)
-VALUE ("Marketing Coordinator", 50000, 2);
-INSERT INTO role (title, salary, department_id)
-VALUE ("Salesman", 60000, 2);
-INSERT INTO role (title, salary, department_id)
-VALUE ("Accountant", 80000, 3);
+create table employee (
+	id int auto_increment not null,
+    first_name varchar(30),
+    last_name varchar(30),
+    role_id int,
+    primary key (id),
+    foreign key (role_id) references role (id)
+);
 
--- EMPLOYEE SEEDS -------
-INSERT INTO employee (first_name, last_name, role_id)
-VALUE ("Lebron", "James", 1);
-INSERT INTO employee (first_name, last_name, role_id)
-VALUE ("Michael", "Jordan", 2);
-INSERT INTO employee (first_name, last_name, role_id)
-VALUE ("Kobe","Bryant", 3);
+insert into employee (first_name, last_name) values ("Lebron", "James"); 
 
--- SELECTING FOR CREATING 
-SELECT * FROM department;
-SELECT * FROM role;
-SELECT * FROM employee;
+select * from department;
+select * from role;
+select * from employee;
