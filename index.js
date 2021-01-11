@@ -1,17 +1,17 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql");
 
-//MySQL logins
+//MySQL Credentials =========================================
 const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
     password: "password",
-    database: "employee_trackerdb"
+    database: "employee_db"
 });
 
 
-//SQL Connection 
+//MySQL Connection ==========================================
 connection.connect(function (err) {
     if (err) {
         console.error("Error connecting: " + err.stack);
@@ -26,7 +26,7 @@ connection.connect(function (err) {
 });
 
 
-//variables To select tables from SQL 
+//Variables to contain the strings needed to select tables from MySQL
 let departments = "SELECT * FROM department;";
 let roles = "SELECT * FROM role;";
 let employees = "SELECT * FROM employee;";
@@ -45,7 +45,7 @@ function getUserInput() {
         let data = inquirer.prompt([
             {
                 type: "list",
-                message: "Please select below:",
+                message: "What would you like to do?",
                 choices: ["[Add Data]", "[View Data]", "[Update Employee Roles]", "[Quit]"],
                 name: "processChoice"
             }
@@ -80,7 +80,8 @@ function displayAddMenu() {
             name: "addChoice"
         }
     ]).then(function (answer) {
-        
+        //console.log("You successfully chose an add option.")
+        //Switch + Functions for  Add departments, roles, employees
 
         //Reconstruct this:
         switch (answer.addChoice) {
@@ -107,12 +108,12 @@ function displayViewMenu() {
     inquirer.prompt([
         {
             type: "list",
-            message: "Please select below:",
+            message: "Select what you would like to view:",
             choices: ["[View Departments]", "[View Roles]", "[View Employees]", "[View All]", "[Main Menu]", "[Quit]"],
             name: "viewChoice"
         }
     ]).then(function (answer) {
-        //Switch statements to get what the user wants to do
+        //Switch statement to determing which data table to Select from and log
         switch (answer.viewChoice) {
             case "[View Departments]":
                 viewTable(departments);
@@ -180,7 +181,7 @@ function updateRoles() {
                     console.log(`Successfully updated ${answer.chosenEmployee}`)
 
                     viewTable(employees);
-                    
+                    // setTimeout(function () { getUserInput() }, 500);
                 }
             );
         })
@@ -201,11 +202,11 @@ function addDepartment() {
         connection.query(`INSERT INTO department (name) values ("${name}")`,
             function (err) {
                 if (err) throw err;
-                
+                // console.log("You need to add a department first.");
                 console.log(`Added department: ${name}`);
 
                 viewTable(departments);
-                
+                // setTimeout(function () { getUserInput() }, 500);
             });
     });
 };
@@ -240,7 +241,7 @@ function addRole() {
                 console.log(`Added role: ${title} with salary: ${salary} at department: ${department}`);
 
                 viewTable(roles);
-                
+                // setTimeout(function () { getUserInput() }, 500);
             })
     });
 };
@@ -249,18 +250,18 @@ function addEmployee() {
     inquirer.prompt([
         {
             type: "input",
-            message: "Please enter first name?",
+            message: "What is the employee's first name?",
             name: "first_name"
         },
         {
             type: "input",
-            message: "Please enter last name?",
+            message: "What is the employee's last name?",
             name: "last_name"
         },
         {
             name: "role",
             type: "input",
-            message: "Please enter Role ID for the employee?"
+            message: "What is the Role ID for the employee?"
         }
     ]).then(function (answer) {
         let first_name = answer.first_name;
@@ -275,7 +276,7 @@ function addEmployee() {
         console.log(`You successfully added: ${first_name} ${last_name} with role ID: ${role}`);
 
         viewTable(employees);
-         
+        // setTimeout(function () { getUserInput() }, 500);
     });
 
 };
